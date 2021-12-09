@@ -1,0 +1,25 @@
+Problem Statement:
+Given a string s, find the length of the longest substring without repeating characters.
+
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        #list to store the unicode of the characters
+        chars = [None] * 128
+
+        left = right = 0
+
+        res = 0
+        while right < len(s):
+            r = s[right]
+    
+            # check if chaaracter already exists in chars
+            # and move left forward if it does
+            index = chars[ord(r)]
+            if index != None and index >= left and index < right:
+                left = index + 1
+
+            res = max(res, right - left + 1)
+
+            chars[ord(r)] = right
+            right += 1
+        return res     
